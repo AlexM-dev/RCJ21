@@ -71,7 +71,7 @@ void Movement::runMotor(int motorIndex, int pwmSpeed) {
 
 void Movement::updateRotationK() {
   if (Serial3.available()) {
-    rAngle = getFormatedAngle(Serial3.read() * 2);
+    rAngle = AngleUtils::getFormatedAngle(Serial3.read() * 2);
 
     int err = targetAngle - rAngle;
     if (err > 180) err-=360;
@@ -104,27 +104,19 @@ void Movement::updateRotationK() {
     rotationK = -MIN_ROTATION_K;
 }
 
-int Movement::getFormatedAngle(int ang){
-  while(ang > 180)
-    ang-=360;
-  while(ang < -180)
-    ang+=360;
-  return ang;
-}
-
 
 //Setters
 void Movement::setRotationByGyro() {
-  zeroAngle = getFormatedAngle(rAngle);
+  zeroAngle = AngleUtils::getFormatedAngle(rAngle);
   targetAngle = zeroAngle;
 }
 void Movement::setRotation(int a) {
 
-  targetAngle = getFormatedAngle(a + zeroAngle);
+  targetAngle = AngleUtils::getFormatedAngle(a + zeroAngle);
   
 }
 void Movement::setDirection(int a) {
-  dirAngle = -getFormatedAngle(a);
+  dirAngle = -AngleUtils::getFormatedAngle(a);
 }
 void Movement::setGyroEnabled(bool enabled) {
   gyroEn = enabled;

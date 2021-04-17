@@ -5,6 +5,9 @@
 #include "math.h"
 #include "../Defines.h"
 #include "../libs/Log.h"
+#include "../libs/AngleUtils.h"
+
+
 
 class Movement{
 public:
@@ -40,7 +43,6 @@ private:
   int tSpeed, cSpeed;
   int dirAngle;
   int oldErr;
-  int getFormatedAngle(int ang);
   //RotateRobot
   int rAngle, targetAngle, zeroAngle;
   int rotationK;

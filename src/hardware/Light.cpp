@@ -24,7 +24,7 @@ bool LightSensor::isLine(){
 
 int LightSensor::getValueFromSensor(){
 
-  Wire.requestFrom(8, 1);    // request 6 bytes from slave device #8
+  Wire.requestFrom(8, 1);
 
   if (Wire.available()) {
     int c = Wire.read();
@@ -32,8 +32,7 @@ int LightSensor::getValueFromSensor(){
     if(c > 0) 
       line = true;
     angle = c;
-    return angle;
   }
-  else
-    return angle;
+
+  return angle;
 }

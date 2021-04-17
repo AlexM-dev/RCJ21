@@ -16,27 +16,11 @@ public:
     }
 
     void doStrategy() override {
-        Log::info("Gyro", String(getMovement()->getRobotAngle()));
+        //Log::info("Gyro", String(getMovement()->getRobotAngle()));
         Log::info("Line", String(getLightSensor()->isLine()));
-        Log::info("Cam", String(getGoalDist()));
-        Log::info("Ball", String(getBallSensor()->getAngle()));
-
-
-
-        /*getMovement()->setSpeed(BASE_SPEED);
-
-
-        if(getBallSensor()->isCanSee()){
-            if(getBallSensor()->isCatched())
-                getMovement()->setDirection(getCamSensor()->getYAngle() * 1.325);
-            else
-                getMovement()->setDirection(getBallSensor()->getAngle() * getAngleMultipiller());
-        } else {
-            getMovement()->setDirection(getCamSensor()->getBAngle());
-        
-            if(getGoalDist() <= 25)
-                getMovement()->setSpeed(0);
-        }*/
+        Log::info("LineA", String(getLightSensor()->getAngle()));
+        //Log::info("Cam", String(getGoalDist()));
+        //Log::info("Ball", String(getBallSensor()->getAngle()));
     }
 
     int getType() override {

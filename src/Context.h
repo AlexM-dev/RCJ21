@@ -28,7 +28,7 @@ public:
     Context(Servo * drib){
         command = ' ';
         hardware.getDribbler()->setMotor(drib);
-        curStrategy = new BallFollowStr(&hardware);
+        curStrategy = new DebugStr(&hardware);
     }
 
     void updateHardware(){
@@ -36,8 +36,7 @@ public:
     }
 
     void updareStrategy(){
-        //System Buttons
-        if(hardware.getButton1()->isClick()){
+        if(hardware.getButton1()->isClick()){ //System Buttons
             hardware.getMovement()->setCanMove(!hardware.getMovement()->isCanMove());
             Log::info("Buttons", hardware.getMovement()->isCanMove()? "Can Move" : "Stop");
         }
