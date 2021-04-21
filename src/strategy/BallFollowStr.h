@@ -31,11 +31,6 @@ public:
         if(getCamSensor()->getAnotherCamDist() < 45)
         {
           getMovement()->setDirection(180);
-          if(getBallSensor()->isCatched() && abs(getCamSensor()->getAnotherCamAngle()) < 45)
-          {
-            Log::info("CamA", String(getCamSensor()->getAnotherCamAngle()));
-            DOn = 0, prev = millis();
-          }
         }
         if(getCamSensor()->getCamDist() < 45)
         {
@@ -112,6 +107,7 @@ public:
       {
           dribler.writeMicroseconds(MID_PPM);
       }
+
 
       // if(getGoalDist2() <= 30){
       //   getMovement()->setDirection(180);

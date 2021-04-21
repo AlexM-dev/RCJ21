@@ -78,7 +78,7 @@ void Movement::updateRotationK() {
     else if (err < -180) err+=360;
     I += err * (micros() - rTime) / 1000;
 
-    if(abs(I) > I_MAX)
+    if(abs(I) > 0)
       I = 0;
     rotationK = (err * ROT_K) + ((err - oldErr) * ROT_D) + I * ROT_I;
     if(abs(err) < 5)
