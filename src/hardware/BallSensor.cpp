@@ -8,7 +8,7 @@ BallSensor::BallSensor(){
 
   tsopSerial = new SoftwareSerial(TSOP_RX, TSOP_TX);
   tsopSerial->begin(115200);
-
+  
 }
 
 void BallSensor::update(){
