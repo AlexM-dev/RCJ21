@@ -2,7 +2,7 @@
 
 CamSensor::CamSensor(){
   Serial2.begin(115200);
-  goal = 0;
+  goal = 1;
 }
 
 void CamSensor::update(){

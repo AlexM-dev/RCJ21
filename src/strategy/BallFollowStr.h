@@ -1,5 +1,6 @@
 #include "Strategy.h"
 #include "../Defines.h"
+#include "../libs/AngleUtils.h"
 #include <Servo.h>
 Servo dribler;
 
@@ -26,65 +27,84 @@ public:
       int leftDist = analogRead(LEFT_SONAR_PIN);   
 
       if(getLightSensor()->isLine()) {
-        getMovement()->setSpeed(75);
-
-        if(getLightSensor()->getAngle() == 1 && leftDist < 30) 
-          getMovement()->setDirection(90);
-        else if(getLightSensor()->getAngle() == 2 && rightDist < 30)
-          getMovement()->setDirection(-90);
-        else if(getLightSensor()->getAngle() == 3)
-            getMovement()->setDirection(180);
-        else if(getLightSensor()->getAngle() == 4)
-            getMovement()->setDirection(0); 
-        }
-        else
+        getMovement()->setSpeed(BASE_SPEED);
+        if(getCamSensor()->getAnotherCamDist() < 45)
         {
-          if(getBallSensor()->isCatched() || getBallSensor()->isCanSee()){
-            if(getBallSensor()->isCatched() || abs(getBallSensor()->getAngle()) < 15 || getBallSensor()->getDistanse() > 80){
-              DOn = 1; 
-              prev = millis();
-              getMovement()->setSpeed(BASE_SPEED);
-              if(getBallSensor()->isCatched())
-              {
-                getMovement()->setDirection(getCamSensor()->getAnotherCamAngle() * 2);
-              }
-              else
-              {
-                getMovement()->setDirection(getBallSensor()->getAngle() * getAngleMultipiller());
-              }
+          getMovement()->setDirection(180);
+          if(getBallSensor()->isCatched() && abs(getCamSensor()->getAnotherCamAngle()) < 45)
+          {
+            Log::info("CamA", String(getCamSensor()->getAnotherCamAngle()));
+            DOn = 0, prev = millis();
+          }
+        }
+        if(getCamSensor()->getCamDist() < 45)
+        {
+          getMovement()->setDirection(0);
+        }
+        if(leftDist < 25)
+        {
+          getMovement()->setDirection(90);
+        }
+        if(rightDist < 25)
+        {
+          getMovement()->setDirection(-90);
+        }
+      }
+      else
+      {
+        if(getBallSensor()->isCatched() || getBallSensor()->isCanSee()){
+          if(getBallSensor()->isCatched() || abs(getBallSensor()->getAngle()) < 30 || getBallSensor()->getDistanse() > 70){
+            DOn = 1; 
+            prev = millis();
+            getMovement()->setSpeed(BASE_SPEED);
+            if(getBallSensor()->isCatched())
+            {
+              getMovement()->setDirection(getCamSensor()->getAnotherCamAngle() * 2);
             }
             else
             {
+              if(abs(getBallSensor()->getAngle()) < 90 && abs(getBallSensor()->getAngle()) > 15)
+                getMovement()->setSpeed(50);
+              else
+                getMovement()->setSpeed(BASE_SPEED);
               getMovement()->setDirection(getBallSensor()->getAngle() * getAngleMultipiller());
-              DOn = 0;
             }
-          } 
+          }
           else
           {
-            getMovement()->setDirection(getCamSensor()->getCamAngle());
-            getMovement()->setSpeed(BASE_SPEED); 
-            if(getGoalDist() <= 30)
-                getMovement()->setSpeed(0);    
-
-            if(getGoalDist() < 20){
-              getMovement()->setDirection(0);
-              getMovement()->setSpeed(BASE_SPEED); 
-            }
-            
+            if(abs(getBallSensor()->getAngle()) < 90 && abs(getBallSensor()->getAngle()) > 15)
+              getMovement()->setSpeed(50);
+            else
+              getMovement()->setSpeed(BASE_SPEED);
+            getMovement()->setDirection(getBallSensor()->getAngle() * getAngleMultipiller());
+            DOn = 0;
           }
+        } 
+        else
+        {
+          getMovement()->setDirection(getCamSensor()->getCamAngle());
+          getMovement()->setSpeed(BASE_SPEED); 
+          if(getGoalDist() <= 30)
+              getMovement()->setSpeed(0);    
+
+          if(getGoalDist() < 20){
+            getMovement()->setDirection(0);
+            getMovement()->setSpeed(BASE_SPEED); 
+          }   
+        }
       }
 
       if(DOn == 1)
       {
-        if(millis() - prev < 100)
+        if(millis() - prev < 500)
           dribler.writeMicroseconds(MID_PPM + 130);
         else
           DOn = 0;      
       }
       else if(DOn == 2)
       {
-        if(millis() - prev < 100)
-          dribler.writeMicroseconds(MID_PPM - 130);
+        if(millis() - prev < 500)
+          dribler.writeMicroseconds(MID_PPM - 70);
         else
           DOn = 0;      
       }

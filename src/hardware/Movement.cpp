@@ -156,8 +156,8 @@ void Movement::moveM(int s, int a) {
 
   a = a + (targetAngle - rAngle);
 
-  if((cSpeed + rotationK) > 220){
-    cSpeed = cSpeed - ((cSpeed + rotationK) - 220);
+  if((cSpeed + rotationK) > 200){
+    cSpeed = cSpeed - ((cSpeed + rotationK) - 200);
   }
 
   //Get speed of motors

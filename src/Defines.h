@@ -1,7 +1,7 @@
 #ifndef DEFINES_H
 #define DEFINES_H
 
-#define BASE_SPEED 70 //скорость чтоб отдельно ее везде не менять
+#define BASE_SPEED 100 //скорость чтоб отдельно ее везде не менять
 
 //Control Elements
 #define BUTTON_PIN1 A10
@@ -25,7 +25,7 @@
 #define ROT_D 0.55
 #define ROT_I 0.00035
 #define I_MAX 3000
-#define MAX_ROTATION_K 200
+#define MAX_ROTATION_K 100
 #define MIN_ROTATION_K 15
 #define MAX_SPEED 200
 #define ballFollowK 1.3
@@ -36,7 +36,7 @@
 #define BALL_CATCHED_SENSOR_PIN A5
 #define BALL_CATCHED_LED_PIN 50
 //#define BALL_CATCHED_SENSOR_VALUE 975 
-#define BALL_CATCHED_SENSOR_VALUE 800
+#define BALL_CATCHED_SENSOR_VALUE 700
 
 //SONARS PINS
 #define LEFT_SONAR_PIN A6
