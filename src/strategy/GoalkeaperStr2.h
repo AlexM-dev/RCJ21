@@ -30,7 +30,10 @@ public:
         getMovement()->setSpeed(0);*/
 
       if(getBallSensor()->isCanSee()){
-        getMovement()->setDirection(getBallSensor()->getAngle() > 0? 90 : -90);
+        getMovement()->setDirection(getBallSensor()->getAngle() > 0? 
+          90 + getCamSensor()->getCamAngle(): 
+          -90 + getCamSensor()->getCamAngle()
+        );
         getMovement()->setSpeed(GK_SPEED);
       }
       else
@@ -40,24 +43,24 @@ public:
         getMovement()->setSpeed(0);
       }
 
-      if(abs(getCamSensor()->getCamAngle()) < maxAngle ){
-        if(abs(getBallSensor()->getAngle()) > 90) {
-          getMovement()->setDirection(getBallSensor()->getAngle() > 0? 90 : -90);
-        }
-        getMovement()->setDirection(getCamSensor()->getCamAngle() > 0? 90 : -90);
-        getMovement()->setSpeed(GK_SPEED);
-      }
+      // if(abs(getCamSensor()->getCamAngle()) < maxAngle ){
+      //   // if(abs(getBallSensor()->getAngle()) > 90) {
+      //   //   getMovement()->setDirection(getBallSensor()->getAngle() > 0? 90 : -90);
+      //   // }
+      //   getMovement()->setDirection(getCamSensor()->getCamAngle() > 0? 90 : -90);
+      //   getMovement()->setSpeed(GK_SPEED);
+      // }
       
 
-      if(getCamSensor()->getAnotherCamDist() >= 23){
-        getMovement()->setDirection(180);
-        getMovement()->setSpeed(GK_SPEED);
-      }
+      // if(getCamSensor()->getAnotherCamDist() >= 23){
+      //   getMovement()->setDirection(180);
+      //   getMovement()->setSpeed(GK_SPEED);
+      // }
 
-      if(getCamSensor()->getAnotherCamDist() < 15){
-        getMovement()->setDirection(0);
-        getMovement()->setSpeed(GK_SPEED);
-      }
+      // if(getCamSensor()->getAnotherCamDist() < 15){
+      //   getMovement()->setDirection(0);
+      //   getMovement()->setSpeed(GK_SPEED);
+      // }
 
       
     } 

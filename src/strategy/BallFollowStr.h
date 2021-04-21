@@ -2,8 +2,8 @@
 #include "../Defines.h"
 #include "../libs/AngleUtils.h"
 #include <Servo.h>
-Servo dribler;
 
+Servo dribler;
 
 #ifndef BALLFOLLOWINGSTR_H
 #define BALLFOLLOWINGSTR_H

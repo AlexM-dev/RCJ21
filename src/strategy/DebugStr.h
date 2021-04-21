@@ -16,11 +16,11 @@ public:
     }
 
     void doStrategy() override {
-        //Log::info("Gyro", String(getMovement()->getRobotAngle()));
+        Log::info("Gyro", String(getMovement()->getRobotAngle()));
         Log::info("Line", String(getLightSensor()->isLine()));
         Log::info("LineA", String(getLightSensor()->getAngle()));
-        //Log::info("Cam", String(getGoalDist()));
-        //Log::info("Ball", String(getBallSensor()->getAngle()));
+        Log::info("Cam", String(getGoalDist()));
+        Log::info("Ball", String(getBallSensor()->getAngle()));
     }
 
     int getType() override {

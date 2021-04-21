@@ -7,6 +7,7 @@ LightSensor::LightSensor(){
   /*lineSerial = new SoftwareSerial(LINE_RX, LINE_TX);
   lineSerial->begin(115200);*/
   Wire.begin();
+  Log::info("Line", Wire.available()? "Line connected" : "Line disconnected");
 }
 
 void LightSensor::update(){

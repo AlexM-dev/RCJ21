@@ -27,6 +27,7 @@ void Movement::initilizeMotors() {
   pinMode(M4_IN2, OUTPUT);
 
   Log::info("Movement","Init Complete");
+  Log::info("Movement", Serial3.available()? "Gyro connected" : "Gyro disconnected");
   
   stopMotors();
 }
