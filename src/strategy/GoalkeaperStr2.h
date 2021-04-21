@@ -40,21 +40,24 @@ public:
         getMovement()->setSpeed(0);
       }
 
-      /*if(abs(getCamSensor()->getCamAngle()) < maxAngle ){
+      if(abs(getCamSensor()->getCamAngle()) < maxAngle ){
+        if(abs(getBallSensor()->getAngle()) > 90) {
+          getMovement()->setDirection(getBallSensor()->getAngle() > 0? 90 : -90);
+        }
         getMovement()->setDirection(getCamSensor()->getCamAngle() > 0? 90 : -90);
         getMovement()->setSpeed(GK_SPEED);
-      }*/
+      }
       
 
-      /*if(getGoalDist() >= 23){
-        getMovement()->setDirection(getCamSensor()->getCamAngle());
+      if(getCamSensor()->getAnotherCamDist() >= 23){
+        getMovement()->setDirection(180);
         getMovement()->setSpeed(GK_SPEED);
       }
 
-      if(getGoalDist() < 15){
+      if(getCamSensor()->getAnotherCamDist() < 15){
         getMovement()->setDirection(0);
         getMovement()->setSpeed(GK_SPEED);
-      }*/
+      }
 
       
     } 
@@ -66,10 +69,6 @@ public:
 
     ~GoalkeaperStr2(){
 
-    }
-
-    float getGoalDist(){
-        return abs(getCamSensor()->getCamDist() * cos(radians(getCamSensor()->getCamAngle())));
     }
 
     //  int takeTargetAngleFromTrajectory(){
