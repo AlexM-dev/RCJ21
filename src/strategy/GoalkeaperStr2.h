@@ -25,6 +25,7 @@ public:
 
 //Log::info("Angle", String(getCamSensor()->getCamAngle()));
 //Log::info("Dist", String(getGoalDist()));
+      static int prev = 0, state = 0;
 
       /*if(getGoalDist() < 23 && getGoalDist() > 15)
         getMovement()->setSpeed(0);*/
@@ -41,27 +42,34 @@ public:
 
       if(abs(getBallSensor()->getAngle()) < 15){
         getMovement()->setSpeed(0);
+        if(state == 0)
+          state = 1, prev = millis();
       }
+      else
+        state == 0, prev = millis();
 
-      // if(abs(getCamSensor()->getCamAngle()) < maxAngle ){
-      //   // if(abs(getBallSensor()->getAngle()) > 90) {
-      //   //   getMovement()->setDirection(getBallSensor()->getAngle() > 0? 90 : -90);
-      //   // }
-      //   getMovement()->setDirection(getCamSensor()->getCamAngle() > 0? 90 : -90);
-      //   getMovement()->setSpeed(GK_SPEED);
-      // }
+      if(abs(getCamSensor()->getCamAngle()) < 95){
+        getMovement()->setDirection(0);
+        getMovement()->setSpeed(GK_SPEED);
+      }
       
 
-      // if(getCamSensor()->getAnotherCamDist() >= 23){
-      //   getMovement()->setDirection(180);
-      //   getMovement()->setSpeed(GK_SPEED);
-      // }
+      if(getCamSensor()->getCamDist() >= 20){
+        getMovement()->setDirection(180);
+        getMovement()->setSpeed(GK_SPEED);
+      }
 
-      // if(getCamSensor()->getAnotherCamDist() < 15){
-      //   getMovement()->setDirection(0);
-      //   getMovement()->setSpeed(GK_SPEED);
-      // }
+      if(getCamSensor()->getCamDist() < 15){
+        getMovement()->setDirection(0);
+        getMovement()->setSpeed(GK_SPEED);
+      }
 
+      if(millis() - prev > 2500 && state == 1) {
+        getMovement()->setDirection(getBallSensor()->getAngle() * 1.3);
+        getMovement()->setSpeed(GK_SPEED);
+        if(getGoalDist >= 40)
+          state = 0;
+      }
       
     } 
       
@@ -92,6 +100,14 @@ public:
     //     p = millis();
     //   }
     // }
+
+    float getGoalDist(){
+        return abs(getCamSensor()->getCamDist() * cos(radians(getCamSensor()->getCamAngle())));
+    }
+
+    float getAnotherGoalDist(){
+        return abs(getCamSensor()->getAnotherCamDist() * cos(radians(getCamSensor()->getAnotherCamAngle())));
+    }
 };
 
 #endif

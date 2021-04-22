@@ -28,11 +28,11 @@ public:
 
       if(getLightSensor()->isLine()) {
         getMovement()->setSpeed(BASE_SPEED);
-        if(getCamSensor()->getAnotherCamDist() < 45)
+        if(getAnotherGoalDist() < 35)
         {
           getMovement()->setDirection(180);
         }
-        if(getCamSensor()->getCamDist() < 45)
+        if(getGoalDist() < 35)
         {
           getMovement()->setDirection(0);
         }
