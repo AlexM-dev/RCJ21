@@ -27,4 +27,6 @@ void loop(){
     context->selectStrategy();
     context->updareStrategy();
     //Serial.println(millis()-timep);
+
+    
 } 
