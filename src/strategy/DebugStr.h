@@ -21,6 +21,7 @@ public:
         Log::info("LineA", String(getLightSensor()->getAngle()));
         Log::info("Cam", String(getGoalDist()));
         Log::info("Ball", String(getBallSensor()->getAngle()));
+        Log::info("Ball", String(getBallSensor()->getDistanse()));
     }
 
     int getType() override {

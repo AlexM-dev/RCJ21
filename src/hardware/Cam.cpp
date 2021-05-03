@@ -1,8 +1,8 @@
 #include "Cam.h"
 
-CamSensor::CamSensor(){
-  Serial2.begin(115200);
-  goal = 0;
+CamSensor::CamSensor(){  ///  Blue   - 0
+  Serial2.begin(115200); ///  Yellow - 1
+  goal = 1;
 }
 
 void CamSensor::update(){

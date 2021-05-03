@@ -6,8 +6,8 @@ LightSensor::LightSensor(){
 
   /*lineSerial = new SoftwareSerial(LINE_RX, LINE_TX);
   lineSerial->begin(115200);*/
-  //Wire.begin();
-  //Log::info("Line", Wire.available()? "Line connected" : "Line disconnected");
+  
+  Log::info("Line", Serial1.available()? "Line connected" : "Line disconnected");
 }
 
 void LightSensor::update(){
@@ -25,15 +25,14 @@ bool LightSensor::isLine(){
 
 int LightSensor::getValueFromSensor(){
 
-  //Wire.requestFrom(8, 1);
-
-  if (Wire.available()) {
-    int c = Wire.read();
-    line = false;
-    if(c > 0) 
-      line = true;
-    angle = c;
+  if(Serial1.available()){
+      int c = Serial1.read();
+      line = false;
+      if(c > 0) 
+        line = true;
+      angle = c;
   }
-
+  else
+    line = false;
   return angle;
 }

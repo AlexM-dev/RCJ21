@@ -46,9 +46,9 @@ public:
         }
       }
       else
-      {
+      { 
         if(getBallSensor()->isCatched() || getBallSensor()->isCanSee()){
-          if(getBallSensor()->isCatched() || abs(getBallSensor()->getAngle()) < 30 || getBallSensor()->getDistanse() > 70){
+          if(getBallSensor()->isCatched() || abs(getBallSensor()->getAngle()) < 30 || getBallSensor()->getDistanse() > 60){
             DOn = 1; 
             prev = millis();
             getMovement()->setSpeed(BASE_SPEED);
@@ -86,27 +86,54 @@ public:
             getMovement()->setDirection(0);
             getMovement()->setSpeed(BASE_SPEED); 
           }   
+
+          // if(getAnotherGoalDist() < 30){
+          //   getMovement()->setDirection(180);
+          //   getMovement()->setSpeed(BASE_SPEED); 
+
+          // }
         }
       }
 
-      if(DOn == 1)
+      if(getCamSensor()->getAnotherCamAngle() < 45 && getAnotherGoalDist() < 40 && (getBallSensor()->isCatched() || abs(getBallSensor()->getAngle()) < 30 || getBallSensor()->getDistanse() > 60))
+      {
+        DOn = 0;
+      }
+
+       if(millis() - prev < 500)
+       {
+          if(DOn == 1)
+            dribler.writeMicroseconds(MID_PPM - 90);
+          if(DOn == 2)
+            dribler.writeMicroseconds(MID_PPM + 90);
+          if(DOn == 0)
+            dribler.writeMicroseconds(MID_PPM);
+       }
+       else
+       {
+          DOn = 0;
+          dribler.writeMicroseconds(MID_PPM);
+       }      
+
+
+      /*if(DOn == 1)
       {
         if(millis() - prev < 500)
-          dribler.writeMicroseconds(MID_PPM + 130);
+          dribler.writeMicroseconds(MID_PPM - 90);
         else
           DOn = 0;      
       }
       else if(DOn == 2)
       {
         if(millis() - prev < 500)
-          dribler.writeMicroseconds(MID_PPM - 70);
+          dribler.writeMicroseconds(MID_PPM + 90);
         else
           DOn = 0;      
       }
       else
       {
           dribler.writeMicroseconds(MID_PPM);
-      }
+      }*/
 
 
       // if(getGoalDist2() <= 30){
@@ -130,12 +157,12 @@ public:
         if(abs(getBallSensor()->getAngle()) < 45)
           return 2;
         if(abs(getBallSensor()->getAngle()) < 90)
-          return 1.7;
+          return 1.85;
         if(abs(getBallSensor()->getAngle()) < 135)
-          return 1.5;
-        return 1.3;
+          return 1.65;
+        return 1.45;
       }
-      return 1.3;
+      return 1.4;
     }
 
     float getCamAngleMultipiller(){
